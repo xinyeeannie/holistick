@@ -1,0 +1,61 @@
+version: '3.7'
+
+services:
+  audiototext-service:
+    build:
+      context: ./audiototext-service
+      dockerfile: Dockerfile
+    ports:
+      - "16160:16060"
+    volumes:
+      - ./audiototext-service:/usr/src/app
+    restart: always
+    environment:
+      - FLASK_ENV=development
+  summary-service:
+    build:
+      context: ./summary-service
+      dockerfile: Dockerfile
+    ports:
+      - "16260:16060"
+    volumes:
+      - ./summary-service:/usr/src/app
+    restart: always
+    environment:
+      - FLASK_ENV=development
+
+  quiz-service:
+    build:
+      context: ./quiz-service
+      dockerfile: Dockerfile
+    ports:
+      - "16360:16060"
+    volumes:
+      - ./quiz-service:/usr/src/app
+    restart: always
+    environment:
+      - FLASK_ENV=development
+  keywords-service:
+    build:
+      context: ./keywords-service
+      dockerfile: Dockerfile
+    ports:
+      - "16460:16060"
+    volumes:
+      - ./keywords-service:/usr/src/app
+    restart: always
+    environment:
+      - FLASK_ENV=development
+  mindmap-service:
+    build:
+      context: ./mindmap-service
+      dockerfile: Dockerfile
+    ports:
+      - "16461:16060"
+    volumes:
+      - ./mindmap-service:/usr/src/app
+    restart: always
+    environment:
+      - FLASK_ENV=development
+
+
