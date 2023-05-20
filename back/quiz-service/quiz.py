@@ -1,6 +1,8 @@
 import openai
 import pandas as pd
 import os
+import re
+import json
 from dotenv import load_dotenv, find_dotenv 
 
 def retrieve_key():
@@ -59,24 +61,48 @@ def prompt_quiz_generation(content):
     GENERATED_QUIZ = response['choices'][0]['message']['content']
     return GENERATED_QUIZ
 
-def quiz_qna_extraction(quiz_content):
+def quiz_qna_extraction(text):
     '''
     Extract Questions and Answers into two different strings
     '''
-    questions = []
-    answers = []
-    correct_answer = ""
+    # Use regular expressions to extract the questions, answer choices, and correct answers
 
-    # Split the questions
+    pattern_question = r"\d.+[^\n]"
+    question_matches = re.findall(pattern_question, text)
+
+    pattern_choices = r"([A-Z]\. \w+.+\n)+"
+    choices_matches = re.findall(pattern_choices, text)
+
+    pattern_answer = r"Correct Answer:+.\w.+[^\n]"
+    answer_matches = re.findall(pattern_answer, text)
+
+    # Combine every answer choice (A-C) per question
+    data = []
+    choices_array = []
+
+    for i in range(0, len(choices_matches),3):
+        combined_choices = ' '.join(choices_matches[i:i+3]) + ' '
+        choices_array.append(combined_choices)
 
 
-    
+    for i in range(len(question_matches)):
+        question_data = {
+            'question': question_matches[i],
+            'choices': choices_array[i],
+            'correct_answer': answer_matches[i]
+        }
+        data.append(question_data)
 
-def convert_json():
-    return 
+    json_data = json.dumps(data, indent=4)
+
+    print(json_data)
+
+    # send this to frontend
+
 
 
 def main():
+    print("test")
     retrieve_key()
     article_content = read_article()
     quiz_content = prompt_quiz_generation(article_content)
