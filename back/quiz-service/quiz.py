@@ -1,7 +1,10 @@
 import openai
 import pandas as pd
 import os
+from flask import Flask, jsonify, request
 from dotenv import load_dotenv, find_dotenv 
+
+quiz = Flask(__name__)
 
 def retrieve_key():
     '''
@@ -70,22 +73,6 @@ def quiz_qna_extraction(quiz_content):
     # Split the questions
 
 
+if __name__ == "__main__":
+    quiz.run(debug=True, port=16360)
     
-
-def convert_json():
-    return 
-
-
-def main():
-    retrieve_key()
-    article_content = read_article()
-    quiz_content = prompt_quiz_generation(article_content)
-    quiz_qna_extraction(quiz_content)
-
-if __name__ == "__main__": 
-    main()
-
-
-
-    
-
