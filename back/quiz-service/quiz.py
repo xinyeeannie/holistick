@@ -1,9 +1,12 @@
 import openai
 import pandas as pd
 import os
+from flask import Flask, jsonify, Request
 import re
 import json
 from dotenv import load_dotenv, find_dotenv 
+
+quiz = Flask(__name__)
 
 def retrieve_key():
     '''
@@ -16,7 +19,7 @@ def read_article():
     '''
     Read content article in .txt file
     '''
-    article_path = "../testing-article/NN-article.txt" # linked to sample article, please change this connection with txt retrieval from frontend later
+    article_path = "testing-article/NNN-article.txt" # linked to sample article, please change this connection with txt retrieval from frontend later
 
     try:
         with open(article_path, 'r') as file:
@@ -59,6 +62,7 @@ def prompt_quiz_generation(content):
         ]
     )
     GENERATED_QUIZ = response['choices'][0]['message']['content']
+    print(GENERATED_QUIZ)
     return GENERATED_QUIZ
 
 def quiz_qna_extraction(text):
@@ -70,8 +74,9 @@ def quiz_qna_extraction(text):
     pattern_question = r"\d.+[^\n]"
     question_matches = re.findall(pattern_question, text)
 
-    pattern_choices = r"([A-Z]\. \w+.+\n)+"
+    pattern_choices = r"[A-Z]\. \w+.+\n"
     choices_matches = re.findall(pattern_choices, text)
+    print(choices_matches)
 
     pattern_answer = r"Correct Answer:+.\w.+[^\n]"
     answer_matches = re.findall(pattern_answer, text)
@@ -83,6 +88,8 @@ def quiz_qna_extraction(text):
     for i in range(0, len(choices_matches),3):
         combined_choices = ' '.join(choices_matches[i:i+3]) + ' '
         choices_array.append(combined_choices)
+
+    print(choices_array)
 
 
     for i in range(len(question_matches)):
@@ -100,9 +107,13 @@ def quiz_qna_extraction(text):
     # send this to frontend
 
 
+    
+
+def convert_json():
+    return 
+
 
 def main():
-    print("test")
     retrieve_key()
     article_content = read_article()
     quiz_content = prompt_quiz_generation(article_content)
@@ -114,4 +125,3 @@ if __name__ == "__main__":
 
 
     
-

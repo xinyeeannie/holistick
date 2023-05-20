@@ -1,5 +1,7 @@
 import yake
+from flask import Flask, jsonify, request
 
+keywords = Flask(__name__)
 
 def kw_extractor(text):
     '''
@@ -28,6 +30,7 @@ def main():
     text = get_content()
     kw_extractor(text)
 
-if __name__ == "__main__": 
-    
+
+if __name__ == "__main__":
     main()
+    keywords.run(debug=True, port=16460)
