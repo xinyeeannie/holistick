@@ -14,7 +14,7 @@ def read_article():
     '''
     Read content article in .txt file
     '''
-    article_path = "test_article\sample_article.txt"
+    article_path = "../testing-article/NN-article.txt" # linked to sample article, please change this connection with txt retrieval from frontend later
 
     try:
         with open(article_path, 'r') as file:
@@ -37,7 +37,6 @@ def prompt_quiz_generation(content):
     Question Text
     Answer Choice Text
     Correct Answer : Correct Answer Text
-    Correct Answer Explanation
 
     For example :
     What is the Captital City of Malaysia?
@@ -46,9 +45,8 @@ def prompt_quiz_generation(content):
     C. Kuala Lumpur
 
     Correct Answer: Kuala Lumpur
-    Explanation : Kuala Lumpur (Malaysian pronunciation: [ˈkualə, -a ˈlumpo(r), -ʊ(r)]), officially the Federal Territory of Kuala Lumpur (Malay: Wilayah Persekutuan Kuala Lumpur; ) and colloquially referred to as KL, is a federal territory and the ceremonial, legislative and judicial capital city of Malaysia.
-    cv 
-    Explain the correct answer in a friendly and academic tone based on the article content, as if you are explaining it to a student.
+
+    Please check if the answers are correct and can be found based on the article.
 
     Article: {content}
     """
@@ -61,17 +59,28 @@ def prompt_quiz_generation(content):
     GENERATED_QUIZ = response['choices'][0]['message']['content']
     return GENERATED_QUIZ
 
-def quiz_qna_extraction():
+def quiz_qna_extraction(quiz_content):
     '''
     Extract Questions and Answers into two different strings
     '''
+    questions = []
+    answers = []
+    correct_answer = ""
+
+    # Split the questions
+
+
+    
+
+def convert_json():
+    return 
 
 
 def main():
     retrieve_key()
     article_content = read_article()
     quiz_content = prompt_quiz_generation(article_content)
-    print(quiz_content)
+    quiz_qna_extraction(quiz_content)
 
 if __name__ == "__main__": 
     main()
