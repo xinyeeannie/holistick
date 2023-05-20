@@ -2,12 +2,18 @@ import yake
 
 
 def kw_extractor(text):
+    '''
+    Keyword extraction using yake library
+    '''
     kw_extractor = yake.KeywordExtractor(top=10, stopwords=None)
     keywords = kw_extractor.extract_keywords(text)
     for kw, v in keywords:
         print("Keyphrase: ",kw, ": score", v)
 
 def get_content():
+    '''
+    Retrive content
+    '''
     article_path = "test_article/article.txt"
     try:
         with open(article_path, 'r') as file:
@@ -20,7 +26,6 @@ def get_content():
 
 def main():
     text = get_content()
-    print("test")
     kw_extractor(text)
 
 if __name__ == "__main__": 
