@@ -1,11 +1,7 @@
 import openai
 import pandas as pd
 import os
-<<<<<<< Updated upstream
-from flask import Flask, jsonify, request
-=======
-from flask import Flask
->>>>>>> Stashed changes
+from flask import Flask, jsonify, Request
 from dotenv import load_dotenv, find_dotenv 
 
 quiz = Flask(__name__)
